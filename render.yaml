@@ -2,7 +2,23 @@ services:
   - type: web
     name: tross-linkedin-profile-api
     runtime: docker
+    plan: free
+    region: oregon
     healthCheckPath: /health
+    autoDeploy: true
+    # All secret values are entered manually at deploy time (sync: false).
+    # API_KEY and ADMIN_SETUP_KEY are required to boot; the LinkedIn values
+    # may alternatively be entered at runtime through the /admin page.
     envVars:
       - key: API_KEY
+        sync: false
+      - key: ADMIN_SETUP_KEY
+        sync: false
+      - key: LINKEDIN_SESSION_COOKIE
+        sync: false
+      - key: LINKEDIN_CSRF_TOKEN
+        sync: false
+      - key: LINKEDIN_PROFILE_ENDPOINT
+        sync: false
+      - key: LINKEDIN_CARDS_ENDPOINT
         sync: false
