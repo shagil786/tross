@@ -6,10 +6,13 @@ services:
     region: oregon
     healthCheckPath: /health
     autoDeploy: true
-    # All secret values are entered manually at deploy time (sync: false).
-    # API_KEY and ADMIN_SETUP_KEY are required to boot; the LinkedIn values
-    # may alternatively be entered at runtime through the /admin page.
     envVars:
+      # Non-secret default endpoints (public LinkedIn URLs).
+      - key: LINKEDIN_PROFILE_ENDPOINT
+        value: https://www.linkedin.com/flagship-web/in/{profile_slug}
+      - key: LINKEDIN_CARDS_ENDPOINT
+        value: https://www.linkedin.com/flagship-web/rsc-action/actions/component?componentId=com.linkedin.sdui.generated.profile.dsl.impl.profileCardsBelowActivityPart1&sduiid=com.linkedin.sdui.generated.profile.dsl.impl.profileCardsBelowActivityPart1
+      # Secret values entered manually at deploy time (sync: false).
       - key: API_KEY
         sync: false
       - key: ADMIN_SETUP_KEY
@@ -17,8 +20,4 @@ services:
       - key: LINKEDIN_SESSION_COOKIE
         sync: false
       - key: LINKEDIN_CSRF_TOKEN
-        sync: false
-      - key: LINKEDIN_PROFILE_ENDPOINT
-        sync: false
-      - key: LINKEDIN_CARDS_ENDPOINT
         sync: false
