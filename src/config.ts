@@ -1,0 +1,4 @@
+import { z } from "zod";
+const schema = z.object({ PORT:z.coerce.number().int().positive().default(3000), HOST:z.string().default("0.0.0.0"), API_KEY:z.string().min(16), ADMIN_SETUP_KEY:z.string().min(16), LINKEDIN_SESSION_COOKIE:z.string().optional(), LINKEDIN_CSRF_TOKEN:z.string().optional(), LINKEDIN_PROFILE_ENDPOINT:z.string().url().optional(), LINKEDIN_CARDS_ENDPOINT:z.string().url().optional(), CACHE_TTL_SECONDS:z.coerce.number().positive().default(900), CACHE_MAX_ENTRIES:z.coerce.number().int().positive().default(100), RATE_LIMIT_MAX:z.coerce.number().int().positive().default(10), RATE_LIMIT_WINDOW:z.string().default("1 minute"), UPSTREAM_TIMEOUT_MS:z.coerce.number().positive().default(10000), UPSTREAM_MAX_CONCURRENCY:z.coerce.number().int().positive().default(2) });
+export type Config = z.infer<typeof schema>;
+export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config { return schema.parse(env); }

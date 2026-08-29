@@ -1,0 +1,3 @@
+export type ErrorCode = "INVALID_PROFILE_URL" | "INVALID_API_KEY" | "RATE_LIMITED" | "UPSTREAM_UNAVAILABLE" | "UPSTREAM_AUTH_REQUIRED" | "UPSTREAM_TIMEOUT" | "UPSTREAM_SCHEMA_MISMATCH" | "EXTRACTION_FAILED";
+export class AppError extends Error { constructor(public readonly code: ErrorCode, public readonly statusCode: number, message: string, public readonly retryAfter?: number) { super(message); this.name = "AppError"; } }
+export function statusFor(code: ErrorCode): number { return ({ INVALID_PROFILE_URL:400, INVALID_API_KEY:401, RATE_LIMITED:429, UPSTREAM_UNAVAILABLE:502, UPSTREAM_AUTH_REQUIRED:503, UPSTREAM_TIMEOUT:504, UPSTREAM_SCHEMA_MISMATCH:502, EXTRACTION_FAILED:500 } as const)[code]; }
